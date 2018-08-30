@@ -2,7 +2,7 @@
 
 This script takes the input folder, looks at all the files in it and in all subfolders, and reports if it finds duplicates. Duplicates are two files with the same name and size.
 
-#Quickstart
+# Quickstart
 
 ```bash
 $ python3 duplicates.py '/home/arkuz/Devman/GitHub/11_duplicates/test'
