@@ -11,31 +11,31 @@ def create_arg_parser():
 
 
 def get_files_info_list(directory):
-    files_info_list = []
+    full_files_info_list = []
+    short_files_info_list = []
     for path, dirnames, filenames in os.walk(directory):
         for filename in filenames:
             filepath = os.path.join(path, filename)
             filesize = os.path.getsize(filepath)
-            files_info_list.append(
+            full_files_info_list.append(
                 (
                     os.path.normpath(filepath),
                     filename,
                     filesize
                 )
             )
-    return files_info_list
-
-
-def get_files_info_without_path_list(short_files_list):
-    files_info_list = []
-    for _, filename, filesize in short_files_list:
-        files_info_list.append((filename, filesize))
-    return files_info_list
+            short_files_info_list.append(
+                (
+                    filename,
+                    filesize
+                )
+            )
+    return full_files_info_list, short_files_info_list
 
 
 def find_duplicate(short_list):
     duplicate_list = [
-        k for k, count in Counter(short_list).items() if count > 1
+        dup for dup, count in Counter(short_list).items() if count > 1
     ]
     return duplicate_list
 
@@ -57,9 +57,7 @@ if __name__ == '__main__':
     if not os.path.isdir(dirpath):
         sys.exit('The path is not a directory.')
 
-    full_files_list = get_files_info_list(dirpath)
-
-    short_files_list = get_files_info_without_path_list(full_files_list)
+    full_files_list, short_files_list = get_files_info_list(dirpath)
 
     duplicate_list = find_duplicate(short_files_list)
 
