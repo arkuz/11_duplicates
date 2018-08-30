@@ -17,19 +17,17 @@ def get_files_info_list(directory):
         for filename in filenames:
             filepath = os.path.join(path, filename)
             filesize = os.path.getsize(filepath)
-            full_files_info_list.append(
-                (
-                    os.path.normpath(filepath),
-                    filename,
-                    filesize
-                )
+            full_file_info = (
+                os.path.normpath(filepath),
+                filename,
+                filesize
             )
-            short_files_info_list.append(
-                (
-                    filename,
-                    filesize
-                )
+            short_file_info = (
+                filename,
+                filesize
             )
+            full_files_info_list.append(full_file_info)
+            short_files_info_list.append(short_file_info)
     return full_files_info_list, short_files_info_list
 
 
